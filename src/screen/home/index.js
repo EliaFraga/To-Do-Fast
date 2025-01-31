@@ -1,10 +1,17 @@
-import { SafeAreaView, StatusBar, Text, } from 'react-native';
+import { SafeAreaView, StatusBar, Text, FlatList } from 'react-native';
+
+import { useEffect, useState } from 'react'
 
 import { styles } from './style';
 
 import FormTask from '../../components/Form';
 
+import { supabase } from '../../lib/supabase';
+
 export default function Home() {
+
+    const [dados, setDados] = useState([])
+
     return (
         <>
             <StatusBar/>
@@ -16,6 +23,8 @@ export default function Home() {
                 <Text style={styles.subtitle}>Crie e gerencie suas tarefas</Text>
 
                 <FormTask/>
+
+                <FlatList/>
 
             </SafeAreaView>
 
