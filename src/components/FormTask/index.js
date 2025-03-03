@@ -15,15 +15,24 @@ export default function FormTask() {
 
     const handleNewTask = async () => {
 
+        if(newTask === ""){
+            alert("Por Favor, Gigite sua tarefa!!")
+            return;
+        }
+
         const { data, error } = await supabase
             .from('tasks')
             .insert([
                 { task: newTask, completed: false }
             ])
             .select();
+
             if(error){
                 console.log(error)
-            };
+                return;
+            } else{
+                setNewTask("")
+            }
     }
 
     return (

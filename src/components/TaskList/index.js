@@ -1,5 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 
+import { useState } from 'react';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { supabase } from '../../lib/supabase';
@@ -8,23 +10,40 @@ import { styles } from './style';
 
 export default function TaskList({ data }) {
 
-    async function deleteTask() {
+    const numericId = data.id
 
-        const numericId = data.id
+    const [completed, setCompleted] = useState(data.completed)
+
+    async function deleteTask() {
 
         const { error } = await supabase
             .from('tasks')
             .delete()
             .eq('id', numericId)
 
-        if(error){
+        if (error) {
             console.log(error)
         }
     }
+
+    async function checkTask() {
+        const { error } = await supabase
+            .from('tasks')
+            .update({completed: true})
+            .eq('id', numericId)
+            
+
+        if (error) {
+            console.log(error)
+        } else{
+            setCompleted(true)
+        }
+    }
+
     return (
         <View style={styles.container}>
 
-            <Text style={styles.text}>{data.task}</Text>
+            <Text style={[styles.text, completed && styles.completed]}>{data.task}</Text>
 
             <View style={styles.buttons}>
 
@@ -34,7 +53,7 @@ export default function TaskList({ data }) {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonCompleted}>
+                <TouchableOpacity style={styles.buttonCompleted} onPress={checkTask}>
 
                     <Ionicons name="checkmark-outline" size={19} color="black" />
 

@@ -12,6 +12,10 @@ export const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#ffffff"
   },
+  completed: {
+    textDecorationLine: "line-through",
+    color: "#888"
+  },
   buttons: {
     position: "absolute",
     bottom: -18,
