@@ -1,5 +1,7 @@
 import { SafeAreaView, StatusBar, Text, FlatList, View } from 'react-native';
 
+import * as SplashScreen from 'expo-splash-screen';
+
 import { useEffect, useState } from 'react'
 
 import { styles } from './style';
@@ -13,6 +15,11 @@ import { supabase } from '../../lib/supabase';
 export default function Home() {
 
     const [tasks, setTasks] = useState([])
+
+    SplashScreen.preventAutoHideAsync();
+
+    SplashScreen.hideAsync();
+
 
     useEffect(() => {
 
