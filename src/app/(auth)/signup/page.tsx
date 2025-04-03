@@ -1,6 +1,20 @@
-import { View, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    SafeAreaView,
+    TextInput,
+    TouchableOpacity
+} from 'react-native';
+
+import { useState } from 'react';
+
+import Feather from '@expo/vector-icons/Feather';
 
 export default function SignUp() {
+
+    const [visiblePassword, setVisiblePassword] = useState(true);
+
     return (
         <SafeAreaView style={styles.container}>
 
@@ -34,11 +48,26 @@ export default function SignUp() {
 
                 <Text style={styles.label}>Senha:</Text>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder='Digite sua senha:'
-                    placeholderTextColor={'#D7E2EA'}
-                />
+                <View style={styles.areaInputIcon}>
+
+                    <TextInput
+                        style={styles.inputSenha}
+                        placeholder='Digite sua senha:'
+                        placeholderTextColor={'#D7E2EA'}
+                        secureTextEntry={visiblePassword}
+                    />
+
+                    <TouchableOpacity style={styles.buttonEye} activeOpacity={1.0} onPress={() => { setVisiblePassword(!visiblePassword) }}>
+
+                        {visiblePassword ?
+                            <Feather name="eye" size={26} color="#D7E2EA" />
+                            :
+                            <Feather name="eye-off" size={26} color="#D7E2EA" />
+                        }
+
+                    </TouchableOpacity>
+
+                </View>
 
             </View>
 
@@ -76,12 +105,32 @@ const styles = StyleSheet.create({
         color: "#5D656C",
         marginVertical: 10
     },
+    areaInputIcon: {
+        width: "100%",
+        height: 43,
+        flexDirection: "row",
+        alignItems: "center",
+    },
     input: {
         width: "100%",
         height: 43,
         backgroundColor: "#5D656C",
         padding: 10,
         color: "#D7E2EA",
+    },
+    inputSenha: {
+        width: "85%",
+        height: 43,
+        backgroundColor: "#5D656C",
+        padding: 10,
+        color: "#D7E2EA",
+    },
+    buttonEye: {
+        width: "15%",
+        height: 43,
+        backgroundColor: "#5D656C",
+        justifyContent: "center",
+        alignItems: "center",
     },
     button: {
         width: "90%",
